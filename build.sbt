@@ -8,8 +8,7 @@ lazy val root = (project in file("."))
   .enablePlugins(ScalaJSPlugin)
   .configs(Slow)
   .settings(
-    // https://stackoverflow.com/questions/41229451/how-to-disable-slow-tagged-scalatests-by-default-allow-execution-with-option
-    inConfig(Slow)(Defaults.testTasks),
+    inConfig(Slow)(Defaults.testTasks ++ ScalaJSPlugin.testConfigSettings),
     Test / testOptions += Tests.Filter(s => !s.endsWith("SlowTest")),
     Slow / testOptions := Seq(Tests.Filter(_.endsWith("SlowTest"))),
     name := "ScalaJSSlowTest",
